@@ -6,12 +6,12 @@ public class RatNum {
 
      public static void main(String[] args) {
 
-	 // System.out.print(toDouble(1,3));
     }
 
-    public static String toString(int a,int b){
+    public String toString(){
 
-	String divisionFormat = String.valueOf(a) + "/" + String.valueOf(b);
+	String divisionFormat = String.valueOf(this.getNumerator()) + "/" + String.valueOf(this.getDenominator());
+	
 	return divisionFormat;
     }
 
@@ -50,8 +50,8 @@ public class RatNum {
     }
     
     public boolean lessThan(RatNum r){
-	RatNum o = (RatNum) r;
-	if((o.getNumerator() / o.getDenominator()) > (this.getNumerator() / this.getDenominator())){
+
+	if(((double)r.getNumerator() / r.getDenominator()) > ((double)this.getNumerator() / this.getDenominator())){
     
 	    return true;
 	}
@@ -59,20 +59,18 @@ public class RatNum {
     }
 
     public RatNum add(RatNum r){
-	
-	RatNum o = (RatNum) r; 
 
 	int newNum;
 	int newDenom;
 	
-	if(o.getDenominator() == this.getDenominator()){
-	    newNum = o.getNumerator() + this.getNumerator();
+	if(r.getDenominator() == this.getDenominator()){
+	    newNum = r.getNumerator() + this.getNumerator();
 	    newDenom = this.getDenominator();
 
 	} else {
 
-	    newNum = (o.getNumerator() * this.getDenominator()) + (this.getNumerator() * o.getDenominator()); 
-	    newDenom = o.getDenominator() * this.getDenominator();
+	    newNum = (r.getNumerator() * this.getDenominator()) + (this.getNumerator() * r.getDenominator()); 
+	    newDenom = r.getDenominator() * this.getDenominator();
 	    
 	}
 	
@@ -82,21 +80,19 @@ public class RatNum {
     }
 
 
-    public RatNum sub(RatNum r){
-
-    	RatNum o = (RatNum) r; 
+    public RatNum sub(RatNum r){ 
 
     	int newNum;
     	int newDenom;
 
-    	if(o.getDenominator() == this.getDenominator()){
-    		newNum = o.getNumerator() - this.getNumerator();
+    	if(r.getDenominator() == this.getDenominator()){
+    		newNum = r.getNumerator() - this.getNumerator();
     		newDenom = this.getDenominator();
 
     	} else {
 
-    		newNum = (o.getNumerator() * this.getDenominator()) - (this.getNumerator() * o.getDenominator()); 
-    		newDenom = o.getDenominator() * this.getNumerator();
+    		newNum = (this.getNumerator() * r.getDenominator()) - (r.getNumerator() * this.getDenominator()); 
+    		newDenom = r.getDenominator() * this.getDenominator();
 
     	}
 
@@ -107,20 +103,15 @@ public class RatNum {
        
     public RatNum mul(RatNum r){
 
-
-    	RatNum o = (RatNum) r;
-
-    	int newNum = o.getNumerator() * this.getNumerator();
-    	int newDenom = o.getDenominator() * this.getDenominator();
+    	int newNum = r.getNumerator() * this.getNumerator();
+    	int newDenom = r.getDenominator() * this.getDenominator();
 
     	RatNum multi = new RatNum(newNum, newDenom);
 
     	return multi;
     }
     
-    public RatNum div(RatNum r){
-
-    	RatNum o = (RatNum) r; 
+    public RatNum div(RatNum r){ 
 
     	int numerator;
     	int denomenator;
@@ -130,8 +121,8 @@ public class RatNum {
     	denomenator = this.getNumerator();
     	numerator = this.getDenominator();
 
-    	newNum = o.getNumerator() * numerator;
-    	newDenom = o.getDenominator() * denomenator;
+    	newDenom = r.getNumerator() * this.getDenominator();
+    	newNum = r.getDenominator() * this.getNumerator();
 
     	RatNum devi = new RatNum(newNum, newDenom);
 
@@ -141,11 +132,11 @@ public class RatNum {
 
     public RatNum (String s){
 	
-	//	this(parse(s).getNumerator(),parse(s).getDenominator());
 	RatNum tempRat = new RatNum(parse(s));
 	numerator = tempRat.getNumerator();
 	denominator = tempRat.getDenominator();
     }
+
 
     public RatNum (){
 
@@ -188,16 +179,15 @@ public class RatNum {
     }
 
     public boolean equals(Object r){
-	if(r == null){
+	if(r != null){
+       
 	    if(r instanceof RatNum){
 		RatNum o = (RatNum) r;
-		if(o.getNumerator() == this.getNumerator() && o.getDenominator() == this.getDenominator()){
-		    return true;
-		} else if((o.getNumerator() - this.getNumerator() <= 0.0001) || (o.getNumerator() - this.getNumerator() >= -0.0001) &&
-			  (o.getDenominator() - this.getDenominator() <= 0.0001) || (o.getDenominator() - this.getDenominator() >= -0.0001)){
 
+		if(((double)o.getNumerator() / o.getDenominator()) == ((double)this.getNumerator() / this.getDenominator())){
 		    return true;
-		}
+		} 
+
 	    }
 	    return false;
 	}	
