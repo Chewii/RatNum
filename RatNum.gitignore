@@ -4,9 +4,7 @@ public class RatNum {
     private int numerator;
     private int denominator;
 
-     public static void main(String[] args) {
-
-    }
+    //Här anges två variabler som speglar nämnare och täljare som används genom hela koden
 
     public String toString(){
 
@@ -14,6 +12,7 @@ public class RatNum {
 	
 	return divisionFormat;
     }
+    //toString returnerar värdet av de två rationella talen i text-form alltså typ string
 
     public double toDouble(){
 
@@ -21,11 +20,14 @@ public class RatNum {
        	return doubleFormat;
 
     }
+    //toDouble gör om täljaren och nämnare till en double typ.
 
     public static RatNum parse(String s){
 
     	String numerator = "";
     	String denomenator = "";
+    	//Dessa variabler behövs inte, men deklareras i syfte till att göra vår
+    	//Integer.parseInt(); mycket lättare att både se och förstå.
     	int parsedDenomenator = 0;
     	int parsedNumerator = 0;
     	int lengthOf = s.length();
@@ -37,17 +39,24 @@ public class RatNum {
     			denomenator = s.substring(slash + 1, lengthOf);
     			parsedNumerator = Integer.parseInt(numerator);
     			parsedDenomenator = Integer.parseInt(denomenator);
+    			//med hjälp av strängen s kan vi se om s innehåller tecknet "/"
+    			//och då ta uttrycket fram till tecknet som täljaren och uttrycket efter 
+    			//tecknet till nämnare.
     		}else {
     			numerator = s.substring(0,lengthOf);
     			parsedNumerator = Integer.parseInt(numerator);
     			parsedDenomenator = 1;
-    		}
+    		} //om inte strängen innehåller ett "/" så blir nämnaren automatiskt 1
     	}catch(NumberFormatException e){
     		throw new NumberFormatException("For input string " + s);
     	}
     	RatNum r = new RatNum(parsedNumerator,parsedDenomenator);
     	return r;
     }
+    /* i parse-metoden kollas sträng typen s om det rationella uttrycket är i korrekt form
+     * annars så kastas ett NumberFormatException.
+     * denna returnerar ett object med den nya nämnaren och täljaren som instanser.
+     * */
     
     public boolean lessThan(RatNum r){
 
@@ -56,7 +65,9 @@ public class RatNum {
 	    return true;
 	}
 	return false;
-    }
+    }//I denna metoden kollas vilket rationellt tal som är störst. (double) måste göras
+    //för att kolla vilket tal som är störst och returnerar true eller false beroende på
+    //vilket tal som är störst.
 
     public RatNum add(RatNum r){
 
@@ -78,7 +89,7 @@ public class RatNum {
 
 	return a;
     }
-
+    //samma som ovan fast adderar två tal och returnerar ett nytt objekt som är en instans i RatNum
 
     public RatNum sub(RatNum r){ 
 
@@ -100,7 +111,7 @@ public class RatNum {
 
     	return sub;
     }
-       
+      
     public RatNum mul(RatNum r){
 
     	int newNum = r.getNumerator() * this.getNumerator();
@@ -113,13 +124,8 @@ public class RatNum {
     
     public RatNum div(RatNum r){ 
 
-    	int numerator;
-    	int denomenator;
     	int newNum;
     	int newDenom;
-
-    	denomenator = this.getNumerator();
-    	numerator = this.getDenominator();
 
     	newDenom = r.getNumerator() * this.getDenominator();
     	newNum = r.getDenominator() * this.getNumerator();
@@ -244,4 +250,3 @@ public class RatNum {
 	return 0;
 	}
 }
-
